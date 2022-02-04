@@ -1,0 +1,7 @@
+{
+  "name": "Favorite Channel Command",
+  "version": "0.1.0",
+  "description": "Adds a command to favorite/unfavorite the current channel.",
+  "author": "psychotrees",
+  "license": "ISC"
+}
