@@ -1,6 +1,6 @@
 const { Plugin } = require('powercord/entities')
 const { inject, uninject } = require('powercord/injector')
-const { getModule, React } = require('powercord/webpack')
+const { getModule, React, constants: { ChannelTypes } } = require('powercord/webpack')
 const { findInReactTree, getOwnerInstance } = require('powercord/util')
 
 module.exports = class FavoriteChannelCommand extends Plugin {
@@ -29,7 +29,7 @@ module.exports = class FavoriteChannelCommand extends Plugin {
         if (!channel)
           return args
 
-        if (channel.type > 2) // it's fine everything's fine don't worry about it
+        if (channel.type === ChannelTypes.GUILD_CATEGORY || channel.type === ChannelTypes.GUILD_DIRECTORY || channel.type === ChannelTypes.GUILD_STORE)
           return args
 
         let isFavorite = GetFavoriteChannels.isFavorite(channel.id)
@@ -44,7 +44,7 @@ module.exports = class FavoriteChannelCommand extends Plugin {
 
         args[0].children.splice(1, 0, React.createElement(Menu.MenuGroup, {}, FavoriteMenuItem))
 
-        if (channel.type != 2)
+        if (!(channel.type === ChannelTypes.GUILD_VOICE || channel.type === ChannelTypes.GUILD_STAGE_VOICE))
           args[0].children.splice(1, 0, React.createElement(Menu.MenuSeparator))
       }
 
