@@ -1,7 +1,7 @@
 {
-  "name": "Favorite Channel Command",
-  "version": "0.1.0",
-  "description": "Adds a command to favorite/unfavorite the current channel.",
+  "name": "Favorite Channels",
+  "version": "0.2.0",
+  "description": "Adds a context menu to favorite/unfavorite channels and DMs.",
   "author": "psychotrees",
   "license": "ISC"
 }
