@@ -7,7 +7,6 @@ module.exports = class FavoriteChannelCommand extends Plugin {
   async startPlugin() {
     const GetFavoriteChannels = await getModule([ 'getFavoriteChannels' ])
     const SetFavoriteChannels = await getModule([ 'addFavoriteChannel' ])
-    const GetChannels = await getModule([ 'getLastSelectedChannelId' ])
     const Menu = await getModule(m => m?.default?.displayName === "Menu")
 
     inject('favorite-channel-cm', Menu, 'default', args => {
@@ -27,8 +26,6 @@ module.exports = class FavoriteChannelCommand extends Plugin {
           channel = (instance?._reactInternals || instance?._reactInternalFiber)?.child.child.child.return?.memoizedProps.children.props.channel
         }
 
-        console.log(channel)
-
         if (!channel)
           return args
 
@@ -45,12 +42,10 @@ module.exports = class FavoriteChannelCommand extends Plugin {
           }
         })
 
-        args[0].children.splice(1, 0,
-          [
-            React.createElement(Menu.MenuSeparator),
-            React.createElement(Menu.MenuGroup, {}, FavoriteMenuItem)
-          ]
-        )
+        args[0].children.splice(1, 0, React.createElement(Menu.MenuGroup, {}, FavoriteMenuItem))
+
+        if (channel.type != 2)
+          args[0].children.splice(1, 0, React.createElement(Menu.MenuSeparator))
       }
 
       return args
