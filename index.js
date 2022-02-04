@@ -10,26 +10,6 @@ module.exports = class FavoriteChannelCommand extends Plugin {
     const GetChannels = await getModule([ 'getLastSelectedChannelId' ])
     const Menu = await getModule(m => m?.default?.displayName === "Menu")
 
-    powercord.api.commands.registerCommand({
-      command: 'favorite',
-      description: 'Toggles channel favorite status',
-      usage: '{c}',
-      executor: () => {
-        let channelId = GetChannels.getChannelId()
-        let isFavorite = GetFavoriteChannels.isFavorite(channelId)
-
-        if (isFavorite)
-          SetFavoriteChannels.removeFavoriteChannel(channelId)
-        else
-          SetFavoriteChannels.addFavoriteChannel(channelId)
-
-        return {
-          send: false,
-          result: `${isFavorite ? "Removed from" : "Added to"} favorite channels.`
-        }
-      }
-    })
-
     inject('favorite-channel-cm', Menu, 'default', args => {
       const [ { navId } ] = args
 
@@ -80,7 +60,6 @@ module.exports = class FavoriteChannelCommand extends Plugin {
   }
 
   pluginWillUnload() {
-    powercord.api.commands.unregisterCommand('favorite')
     uninject('favorite-channel-cm')
   }
 }
