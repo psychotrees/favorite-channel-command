@@ -36,7 +36,7 @@ module.exports = class FavoriteChannelCommand extends Plugin {
 
         const FavoriteMenuItem = React.createElement(Menu.MenuItem, {
           id: 'favorite-channel',
-          label: (isFavorite ? 'Unfavorite' : 'Favorite') + (navId == 'channel-context' ? ' Channel' : ' DM'),
+          label: `${isFavorite ? 'Unfavorite' : 'Favorite'} ${navId == 'channel-context' ? 'Channel' : 'DM'}`,
           action: () => {
             SetFavoriteChannels.toggleFavoriteChannel(channel.id)
           }
